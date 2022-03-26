@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ADMIN/Documents/Semester 2 year 3/lap trinh thiet bi di dong/file code/NoteApp/app/src/main/res/layout/activity_main.xml" value="0.5" />
-        <entry key="..\:/Users/ADMIN/Documents/Semester 2 year 3/lap trinh thiet bi di dong/file code/NoteApp/app/src/main/res/layout/layout_delete_note.xml" value="0.25" />
-        <entry key="..\:/Users/ADMIN/Documents/Semester 2 year 3/lap trinh thiet bi di dong/file code/NoteApp/app/src/main/res/layout/layout_miscellaneous.xml" value="0.35104166666666664" />
+        <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note_color_1.xml" value="0.184375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note_color_2.xml" value="0.184375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note_color_4.xml" value="0.184375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note_color_5.xml" value="0.184375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/layout/item_container_note.xml" value="0.21" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/layout/layout_delete_note.xml" value="0.16576086956521738" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/layout/layout_miscellaneous.xml" value="0.16576086956521738" />
       </map>
     </option>
   </component>
