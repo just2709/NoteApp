@@ -9,7 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorIcons">#A4A4A4</color>
     <color name="colorMiscellaneousBackground">#000000</color>
-
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorPrimary">#292929</color>
@@ -27,6 +26,7 @@
     <color name="colorNoteColor5">#000000</color>
     <color name="colorDelete">#FF4842</color>
     <color name="colorSearchBackground">#333333</color>
+    <color name="yellow">#f5b342</color>
 
 
 </resources>
