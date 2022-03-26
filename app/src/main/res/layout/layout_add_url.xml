@@ -28,7 +28,7 @@
         android:includeFontPadding="false"
         android:text="@string/add_url"
         android:textColor="@color/white"
-        android:textsize="14sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/imageAddURL"
         app:layout_constraintEnd_toEndOf = "parent"
         app:layout_constraintStart_toEndOf = "@id/imageAddURL"
@@ -47,7 +47,7 @@
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="aid/inputURL" />
+        app:layout_constraintTop_toBottomOf="@id/inputURL" />
 
     <EditText
         android:id="@+id/inputURL"
@@ -66,7 +66,7 @@
         android:textColor="@color/white"
         android:textColorHint="#9E9E9E"
         android:textSize="13sp"
-        app:layout_constraintTop_toBottomOf="aid/imageAddURL"
+        app:layout_constraintTop_toBottomOf="@id/imageAddURL"
         tools:layout_editor_absoluteX="71dp" />
 
     <TextView

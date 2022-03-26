@@ -6,19 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.noteapp.R;
-import com.example.noteapp.activities.CreateNoteActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog dialogDeleteNote;
-    public static final int REQUEST_CODE_ADD_NOTE = 1;
+    //public static final int REQUEST_CODE_ADD_NOTE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivityForResult(
                         new Intent(getApplicationContext(), CreateNoteActivity.class),
-                        REQUEST_CODE_ADD_NOTE
+                        200
                 );
             }
         });
