@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog dialogDeleteNote;
+    private ImageView imageAddWebLink;
+    //public static final int REQUEST_CODE_ADD_NOTE = 1;
 
 
     @Override
