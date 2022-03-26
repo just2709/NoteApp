@@ -4,6 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/background_add_button.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/background_done_button.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/background_note_color_1.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/background_search.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/background_subtitle_indicator.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_add_outline.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_back.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_done.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_image.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="..\:/HOC TAP/lapTrinh_Android/NoteApp/app/src/main/res/drawable/ic_web_link.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/NoteApp/app/src/main/res/drawable/background_note_color_1.xml" value="0.184375" />
