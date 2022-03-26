@@ -3,31 +3,37 @@ package com.example.noteapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class CreateNoteActivity extends AppCompatActivity {
+    private AlertDialog dialogDeleteNote;
     private String selectedColor;
-     View viewSubtitle;
-    ImageView imagecolor1,imagecolor2,imagecolor3,imagecolor4,imagecolor5;
+    View viewSubtitle;
+    ImageView imagecolor1,imagecolor2,imagecolor3,imagecolor4,imagecolor5, imageSave;
+    EditText inputNoteTitle, inputNoteSubTitle, inputNote, imageNote;
+    TextView textDateTime;
 
-    private ImageView imageNote;
     private TextView textWebURL;
+    private Note alreadyAvailableNote;
     private LinearLayout layoutWebURL;
     private AlertDialog dialogAddURL;
 
@@ -36,7 +42,36 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
+        inputNoteTitle = (EditText)findViewById(R.id.inputNoteTitle);
+        inputNoteSubTitle = (EditText)findViewById(R.id.inputNoteSubTitle);
+        inputNote = (EditText)findViewById(R.id.inputNote);
+        textDateTime = (TextView) findViewById(R.id.textDateTime);
+        imageNote = (EditText)findViewById(R.id.imageNote);
+        textDateTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         viewSubtitle = findViewById(R.id.viewSubtitleIndicator);
+
+        imageSave = findViewById(R.id.imageSave);
+        imageSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String validate = Validate(inputNoteTitle.getText().toString());
+
+                if (validate.equals("")) {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+
+                    Note note1 = new Note(10,  "23", inputNoteTitle.getText().toString(),
+                            inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
+                            textDateTime.getText().toString(), selectedColor, textWebURL.getText().toString());
+                    bundle.putSerializable("note", note1);
+                    intent.putExtras(bundle);
+                    setResult(200, intent);
+                    finish();
+                } else {
+                    Toast.makeText(CreateNoteActivity.this, validate, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         ImageView imageBack = findViewById(R.id.imageBack);
          textWebURL = findViewById(R.id.textWebURL);
@@ -49,6 +84,10 @@ public class CreateNoteActivity extends AppCompatActivity {
         });
         selectedColor = "#333333";
 
+        if(getIntent().getBooleanExtra("isViewOrUpdate", false)){
+            alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
+            setViewOrUpdateNote();
+        }
         initMiscellaneous();
         setSubtitleColor();
     }
@@ -143,6 +182,14 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
+        layoutMiscellaneous.findViewById(R.id.layoutDeleteNote).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetBehavior.setState(bottomSheetBehavior.STATE_COLLAPSED);
+                showDeleteNoteDialog();
+            }
+        });
+
     }
 
 
@@ -150,11 +197,60 @@ public class CreateNoteActivity extends AppCompatActivity {
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitle.getBackground();
         gradientDrawable.setColor(Color.parseColor(selectedColor));
     }
+    private void showDeleteNoteDialog() {
+
+        if(dialogDeleteNote == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_delete_note, (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer));
+            builder.setView(view);
+            dialogDeleteNote = builder.create();
+            if(dialogDeleteNote.getWindow() != null) {
+                dialogDeleteNote.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+
+            view.findViewById(R.id.btnDeleteNote).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    setResult(199, intent);
+                    finish();
+                    layoutWebURL.setVisibility(View.VISIBLE);
+                    dialogDeleteNote.dismiss();
+                }
+            });
+
+            view.findViewById(R.id.btnCancelDelete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogDeleteNote.dismiss();
+                }
+            });
+        }
+
+        dialogDeleteNote.show();
+    }
+
+    private String Validate(String Title) {
+        if (Title.equals("")) {
+            return "Chưa nhập tiêu đề";
+        }
+        return "";
+    }
+
+    private void setViewOrUpdateNote() {
+        inputNoteTitle.setText(alreadyAvailableNote.getTitle());
+        inputNoteSubTitle.setText(alreadyAvailableNote.getSubTitle());
+        inputNote.setText(alreadyAvailableNote.getContent());
+        textDateTime.setText(alreadyAvailableNote.getDateTime());
+//        if(alreadyAvailableNote.getImage() != null && !alreadyAvailableNote.getImage().trim().isEmpty()) {
+//            imageNote.setImageBitmap()
+//        }
+    }
 
     private void showAddURLDialog() {
         if(dialogAddURL == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_add_url, (ViewGroup) findViewById(R.id.layoutAddUrlContainer));
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_add_url, (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer));
             builder.setView(view);
 
             dialogAddURL = builder.create();

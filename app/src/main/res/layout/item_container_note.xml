@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutNote"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,7 +8,16 @@
     android:layout_marginTop="12sp"
     android:background="@drawable/background_note"
     android:layout_height="wrap_content">
-    
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        app:riv_corner_radius_top_left="10sp"
+        app:riv_corner_radius_top_right="10sp"/>
+
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
@@ -21,7 +31,7 @@
         android:textSize="13sp" />
 
     <TextView
-        android:id="@+id/textSubtitile"
+        android:id="@+id/textSubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8sp"
@@ -44,8 +54,8 @@
         android:includeFontPadding="false"
         android:textColor="@color/teal_200"
         android:textSize="7sp"
-
         />
+
 
 
 
