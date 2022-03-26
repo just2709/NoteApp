@@ -17,6 +17,8 @@
         android:layout_marginTop="8sp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_web_link"
+        app:tint="@color/white"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
