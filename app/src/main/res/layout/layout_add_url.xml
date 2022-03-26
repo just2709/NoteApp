@@ -16,7 +16,7 @@
         android:layout_marginStart="8sp"
         android:layout_marginTop="8sp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/icon_web"
+        android:src="@drawable/ic_web_link"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

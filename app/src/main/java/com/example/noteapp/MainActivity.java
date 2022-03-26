@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog dialogDeleteNote;
-    //public static final int REQUEST_CODE_ADD_NOTE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
