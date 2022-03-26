@@ -11,7 +11,9 @@
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/background_note_color_3.xml" value="0.161" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/background_note_color_4.xml" value="0.161" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/background_note_color_5.xml" value="0.161" />
+        <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/ic_delete.xml" value="0.161" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/drawable/layout_delete_note.xml" value="0.161" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/layout/activity_create_note.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidApps/NoteApp/app/src/main/res/layout/item_container_note.xml" value="0.22826086956521738" />
