@@ -61,14 +61,15 @@ public class CreateNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_note);
 
         ImageView imageBack = findViewById(R.id.imageBack);
-         textWebURL = findViewById(R.id.textWebURL);
-         layoutWebURL = findViewById(R.id.layoutWebURL);
+        textWebURL = findViewById(R.id.textWebURL);
+        layoutWebURL = findViewById(R.id.layoutWebURL);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+
         selectedColor = "#333333";
         initMiscellaneous();
 
@@ -381,6 +382,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteTitle.setText(alreadyAvailableNote.getTitle());
         inputNoteSubTitle.setText(alreadyAvailableNote.getSubTitle());
         inputNote.setText(alreadyAvailableNote.getContent());
+        textWebURL.setText(alreadyAvailableNote.getWebLink());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
 
     }
