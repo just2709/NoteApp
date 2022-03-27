@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -61,7 +62,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         ImageView imageBack = findViewById(R.id.imageBack);
          textWebURL = findViewById(R.id.textWebURL);
-         layoutWebURL = findViewById(R.id.layoutWebUrL);
+         //layoutWebURL = findViewById(R.id.layoutWebUrL);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +91,8 @@ public class CreateNoteActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
 
-                    Note note1 = new Note("", inputNoteTitle.getText().toString(),
+                    // thêm selectImagePath
+                    Note note1 = new Note(, inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
                             textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
                     bundle.putSerializable("note", note1);
@@ -106,13 +108,16 @@ public class CreateNoteActivity extends AppCompatActivity {
         ImageView imageBack = findViewById(R.id.imageBack);
         textWebURL = findViewById(R.id.textWebURL);
         // layoutWebURL = findViewById(R.id.layoutWebUrL);
+
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+
         selectedColor = "#333333";
+        SelectedImagePath = "";
 
         if(getIntent().getBooleanExtra("isViewOrUpdate", false)){
             alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
@@ -281,7 +286,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         imageNote.setImageBitmap(bitmap);
                         imageNote.setVisibility(View.VISIBLE);
 
-                        // SelectedImagePath = getPathFromUri(selectedImageUri);
+                        SelectedImagePath = getPathFromUri(selectedImageUri);
 
                     }catch (Exception exception){
                         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
@@ -289,6 +294,22 @@ public class CreateNoteActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // này cũng thuộc phần thêm ảnh
+    private String getPathFromUri(Uri contentUri){
+        String filePath;
+        Cursor cursor = getContentResolver()
+                .query(contentUri, null, null, null,null);
+        if(cursor == null){
+            filePath = contentUri.getPath();
+        }else{
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex("_data");
+            filePath = cursor.getString(index);
+            cursor.close();
+        }
+        return filePath;
     }
 
     private void showDeleteNoteDialog() {
