@@ -1,27 +1,26 @@
 package com.example.noteapp;
 
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Filter;
+import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> implements Filterable{
 
-    private List<Note> notes;
+    private ArrayList<Note> notes;
     private NoteListener noteListener;
-
-    public MyAdapter(List<Note> notes, NoteListener noteListener) {
+    private ArrayList<Note> databackup;
+    public MyAdapter(ArrayList<Note> notes, NoteListener noteListener) {
 
         this.notes = notes;
         this.noteListener = noteListener;
@@ -55,9 +54,59 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder>{
         return notes.size();
     }
 
+
+
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter f = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                FilterResults fr = new FilterResults();
+                //backup dữ liệu : lưu tạm data vào databackup
+                if (databackup == null) {
+                    databackup = new ArrayList<>(notes);
+                    //nếu chuỗi để filter là rỗng thì khôi phục dữ liệu
+
+                }
+                if (charSequence == null || charSequence.length() == 0) {
+                    fr.count = databackup.size();
+                    fr.values = databackup;
+
+                }
+                // còn nếu không rỗng thì thực hiện filer
+                else {
+                    ArrayList<Note> newdata = new ArrayList<>();
+                    for (Note note : databackup) {
+                        if (note.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                            newdata.add(note);
+                        }
+
+                    }
+                    fr.count = newdata.size();
+                    fr.values = newdata;
+                }
+                return fr;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                notes = new ArrayList<Note>();
+                ArrayList<Note> tmp = (ArrayList<Note>) filterResults.values;
+                for (Note note : tmp) {
+                    Note contact = new Note(note.getImage(),note.getTitle(),note.getSubTitle(), note.getContent(),note.getDateTime(),note.getColor(),note.getWebLink());
+                    notes.add(note);
+                }
+                notifyDataSetChanged();
+            }
+
+
+        };
+        return f;
     }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder{
@@ -108,5 +157,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder>{
         }
 
     }
+
+
 }
 
