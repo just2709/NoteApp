@@ -88,6 +88,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder>{
 //            } else {
 //                gradientDrawable.setColor(Color.parseColor("#333333"));
 //            }
+
+//            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
+//            if(note.getColor() != null)
+//            {
+//                gradientDrawable.setColor(Color.parseColor(note.getColor()));
+//            } else {
+//                gradientDrawable.setColor(Color.parseColor("#333333"));
+//            }
+
+            // add image
+//            if(note.setImage() != null){
+//                imageNote.setImageBitmap(BitmapFactory.decodeFile(note.getImage()));
+//                imageNote.setVisibility(View.VISIBLE);
+//            }else {
+//                imageNote.setVisibility(View.GONE);
+//            }
+
         }
 
     }

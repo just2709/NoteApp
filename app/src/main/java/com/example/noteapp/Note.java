@@ -87,4 +87,5 @@ public class Note implements Serializable {
     public void setWebLink(String webLink) {
         WebLink = webLink;
     }
+
 }
