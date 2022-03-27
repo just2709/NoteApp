@@ -61,8 +61,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_note);
 
         ImageView imageBack = findViewById(R.id.imageBack);
-        textWebURL = findViewById(R.id.textWebURL);
-        layoutWebURL = findViewById(R.id.layoutWebURL);
+         textWebURL = findViewById(R.id.textWebURL);
+         layoutWebURL = findViewById(R.id.layoutWebURL);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +71,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         });
 
         selectedColor = "#333333";
+        SelectedImagePath = "";
         initMiscellaneous();
 
         inputNoteTitle = (EditText)findViewById(R.id.inputNoteTitle);
@@ -93,7 +94,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
 
                     // thêm selectImagePath
-                    Note note1 = new Note(1,"", inputNoteTitle.getText().toString(),
+                    Note note1 = new Note(SelectedImagePath, inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
                             textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
                     bundle.putSerializable("note", note1);
@@ -274,7 +275,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                         imageNote.setImageBitmap(bitmap);
                         imageNote.setVisibility(View.VISIBLE);
 
-                        // SelectedImagePath = getPathFromUri(selectedImageUri);
+                        SelectedImagePath = getPathFromUri(selectedImageUri);
 
                     }catch (Exception exception){
                         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();

@@ -24,6 +24,9 @@ public class Note implements Serializable {
         WebLink = webLink;
     }
 
+    public Note(String image, String title, String subTitle, String content, String dateTime, String color, String webLink) {
+    }
+
     public int getId() {
         return Id;
     }
