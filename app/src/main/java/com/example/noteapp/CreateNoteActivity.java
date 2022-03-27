@@ -1,13 +1,23 @@
 package com.example.noteapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -27,15 +38,21 @@ import java.util.Locale;
 public class CreateNoteActivity extends AppCompatActivity {
     private AlertDialog dialogDeleteNote;
     private String selectedColor;
+    private String SelectedImagePath;
     View viewSubtitle;
     ImageView imagecolor1,imagecolor2,imagecolor3,imagecolor4,imagecolor5, imageSave;
-    EditText inputNoteTitle, inputNoteSubTitle, inputNote, imageNote;
+    EditText inputNoteTitle, inputNoteSubTitle, inputNote;
     TextView textDateTime;
 
     private TextView textWebURL;
     private Note alreadyAvailableNote;
     private LinearLayout layoutWebURL;
     private AlertDialog dialogAddURL;
+    private ImageView imageNote;
+
+    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
+    private  static final int REQUEST_CODE_SELECT_IMAGE = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +63,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteSubTitle = (EditText)findViewById(R.id.inputNoteSubTitle);
         inputNote = (EditText)findViewById(R.id.inputNote);
         textDateTime = (TextView) findViewById(R.id.textDateTime);
-        imageNote = (EditText)findViewById(R.id.imageNote);
+        //imageNote = (EditText)findViewById(R.id.imageNote);
+        imageNote = findViewById(R.id.imageNote);
         textDateTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         viewSubtitle = findViewById(R.id.viewSubtitleIndicator);
 
@@ -74,8 +92,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         });
 
         ImageView imageBack = findViewById(R.id.imageBack);
-         textWebURL = findViewById(R.id.textWebURL);
-         layoutWebURL = findViewById(R.id.layoutWebUrL);
+        textWebURL = findViewById(R.id.textWebURL);
+        // layoutWebURL = findViewById(R.id.layoutWebUrL);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +192,25 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
+        // Làm phần add Image
+        layoutMiscellaneous.findViewById(R.id.layoutAddImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                if(ContextCompat.checkSelfPermission(
+                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(
+                            CreateNoteActivity.this,
+                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_CODE_STORAGE_PERMISSION
+                    );
+                } else{
+                    selectImage();
+                }
+            }
+        });
+
         layoutMiscellaneous.findViewById(R.id.layoutAddUrl).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,11 +229,56 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     }
 
-
+    // Xét màu
     private void setSubtitleColor(){
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubtitle.getBackground();
         gradientDrawable.setColor(Color.parseColor(selectedColor));
     }
+
+    // Thêm ảnh
+    private void selectImage(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+        }
+    }
+
+    // phần thêm ảnh
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_CODE_STORAGE_PERMISSION && grantResults.length > 0){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                selectImage();
+            }else{
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK){
+            if(data != null){
+                Uri selectedImageUri = data.getData();
+                if(selectedImageUri != null){
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imageNote.setImageBitmap(bitmap);
+                        imageNote.setVisibility(View.VISIBLE);
+
+                        // SelectedImagePath = getPathFromUri(selectedImageUri);
+
+                    }catch (Exception exception){
+                        Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+    }
+
     private void showDeleteNoteDialog() {
 
         if(dialogDeleteNote == null) {
