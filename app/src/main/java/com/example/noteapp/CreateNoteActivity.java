@@ -79,7 +79,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         imageNote = findViewById(R.id.imageNote);
         textDateTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         viewSubtitle = findViewById(R.id.viewSubtitleIndicator);
-
+        textWebURL = findViewById(R.id.textWebURL);
         imageSave = findViewById(R.id.imageSave);
         imageSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,16 +103,6 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
-        ImageView imageBack = findViewById(R.id.imageBack);
-        textWebURL = findViewById(R.id.textWebURL);
-        // layoutWebURL = findViewById(R.id.layoutWebUrL);
-        imageBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        selectedColor = "#333333";
 
         if(getIntent().getBooleanExtra("isViewOrUpdate", false)){
             alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
@@ -210,8 +200,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 if(ContextCompat.checkSelfPermission(
-                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED){
+                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(
                             CreateNoteActivity.this,
                             new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -295,7 +284,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         if(dialogDeleteNote == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_delete_note, (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer));
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_delete_note, (ViewGroup) findViewById(R.id.layoutWebUrL));
             builder.setView(view);
             dialogDeleteNote = builder.create();
             if(dialogDeleteNote.getWindow() != null) {
@@ -336,15 +325,13 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteSubTitle.setText(alreadyAvailableNote.getSubTitle());
         inputNote.setText(alreadyAvailableNote.getContent());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
-//        if(alreadyAvailableNote.getImage() != null && !alreadyAvailableNote.getImage().trim().isEmpty()) {
-//            imageNote.setImageBitmap()
-//        }
+
     }
 
     private void showAddURLDialog() {
         if(dialogAddURL == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_add_url, (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer));
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_add_url, (ViewGroup) findViewById(R.id.layoutWebUrL));
             builder.setView(view);
 
             dialogAddURL = builder.create();
