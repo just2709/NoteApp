@@ -92,7 +92,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
 
                     // thêm selectImagePath
-                    Note note1 = new Note(, inputNoteTitle.getText().toString(),
+                    Note note1 = new Note("", inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
                             textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
                     bundle.putSerializable("note", note1);
