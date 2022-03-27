@@ -59,6 +59,18 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
+        ImageView imageBack = findViewById(R.id.imageBack);
+         textWebURL = findViewById(R.id.textWebURL);
+         layoutWebURL = findViewById(R.id.layoutWebUrL);
+        imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        selectedColor = "#333333";
+        initMiscellaneous();
+
         inputNoteTitle = (EditText)findViewById(R.id.inputNoteTitle);
         inputNoteSubTitle = (EditText)findViewById(R.id.inputNoteSubTitle);
         inputNote = (EditText)findViewById(R.id.inputNote);
@@ -78,9 +90,9 @@ public class CreateNoteActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
 
-                    Note note1 = new Note(10,  "23", inputNoteTitle.getText().toString(),
+                    Note note1 = new Note("", inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
-                            textDateTime.getText().toString(), selectedColor, textWebURL.getText().toString());
+                            textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
                     bundle.putSerializable("note", note1);
                     intent.putExtras(bundle);
                     setResult(200, intent);
@@ -106,8 +118,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
             setViewOrUpdateNote();
         }
-        initMiscellaneous();
         setSubtitleColor();
+
     }
 
     private void initMiscellaneous(){

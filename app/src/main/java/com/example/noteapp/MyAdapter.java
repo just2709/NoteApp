@@ -81,13 +81,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder>{
                 textSubtitle.setText(note.getSubTitle());
             }
             textDateTime.setText(note.getDateTime());
-            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
-            if(note.getColor() != null)
-            {
-                gradientDrawable.setColor(Color.parseColor(note.getColor()));
-            } else {
-                gradientDrawable.setColor(Color.parseColor("#333333"));
-            }
+//            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
+//            if(note.getColor() != null)
+//            {
+//                gradientDrawable.setColor(Color.parseColor(note.getColor()));
+//            } else {
+//                gradientDrawable.setColor(Color.parseColor("#333333"));
+//            }
         }
 
     }

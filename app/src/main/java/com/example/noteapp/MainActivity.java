@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         listView = findViewById(R.id.notesRecyclerView);
         listView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
-        mysqlitedb = new MyDB(this, "NoteDataBase", null, 1);
+        mysqlitedb = new MyDB(this, "NoteAppDB", null, 1);
 
 //        mysqlitedb.addNote(new Note(1, "2", "Công suất 200W", "Hello", "...", "...", "...", "..."));
         lstNote = mysqlitedb.getAllNote();
