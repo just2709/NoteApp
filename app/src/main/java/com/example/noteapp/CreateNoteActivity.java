@@ -1,20 +1,13 @@
 package com.example.noteapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -92,7 +92,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
 
                     // thêm selectImagePath
-                    Note note1 = new Note("", inputNoteTitle.getText().toString(),
+                    Note note1 = new Note(1,"", inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
                             textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
                     bundle.putSerializable("note", note1);

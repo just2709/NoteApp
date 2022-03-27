@@ -1,13 +1,12 @@
 package com.example.noteapp;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     ArrayList<Note> lstNote;
     MyAdapter lstAdapter;
     RecyclerView listView;
+    EditText editSearch;
     //public static final int REQUEST_CODE_ADD_NOTE = 1;
     MyDB mysqlitedb;
     int selectedid = -1;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
         listView = findViewById(R.id.notesRecyclerView);
         listView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
+        editSearch = findViewById(R.id.inputSearch);
         mysqlitedb = new MyDB(this, "NoteAppDB", null, 1);
 
 //        mysqlitedb.addNote(new Note(1, "2", "Công suất 200W", "Hello", "...", "...", "...", "..."));
@@ -52,6 +52,26 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CreateNoteActivity.class);
                 startActivityForResult(intent, 100);
+            }
+        });
+
+        //search
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                lstAdapter.getFilter().filter(charSequence.toString());
+                lstAdapter.notifyDataSetChanged();
+                listView.setAdapter(lstAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 

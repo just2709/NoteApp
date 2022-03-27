@@ -53,7 +53,7 @@ public class MyDB extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-//        value.put(Id,  note.getId());
+       value.put(Id,  note.getId());
         value.put(Image, note.getImage());
         value.put(Title, note.getTitle());
         value.put(subTitle, note.getSubTitle());
@@ -68,7 +68,7 @@ public class MyDB extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
-//        value.put(Id, note.getId());
+     value.put(Id, note.getId());
         value.put(Image, note.getImage());
         value.put(Title, note.getTitle());
         value.put(subTitle, note.getSubTitle());
@@ -101,13 +101,14 @@ public class MyDB extends SQLiteOpenHelper {
         if(cursor!=null)
             while (cursor.moveToNext())
             {
-                Note note = new Note(cursor.getString(0),
+                Note note = new Note(cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getString(7)
                         );
                 list.add(note);
             }

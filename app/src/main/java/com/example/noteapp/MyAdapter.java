@@ -1,5 +1,6 @@
 package com.example.noteapp;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,12 +94,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
                 return fr;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 notes = new ArrayList<Note>();
                 ArrayList<Note> tmp = (ArrayList<Note>) filterResults.values;
                 for (Note note : tmp) {
-                    Note contact = new Note(note.getImage(),note.getTitle(),note.getSubTitle(), note.getContent(),note.getDateTime(),note.getColor(),note.getWebLink());
+                    Note nt = new Note(note.getId(),note.getImage(),note.getTitle(),note.getSubTitle(), note.getContent(),note.getDateTime(),note.getColor(),note.getWebLink());
                     notes.add(note);
                 }
                 notifyDataSetChanged();
