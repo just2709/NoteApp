@@ -1,5 +1,6 @@
 package com.example.noteapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -53,7 +54,7 @@ public class MyDB extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-       value.put(Id,  note.getId());
+//       value.put(Id,  note.getId());
         value.put(Image, note.getImage());
         value.put(Title, note.getTitle());
         value.put(subTitle, note.getSubTitle());
@@ -68,7 +69,7 @@ public class MyDB extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
-     value.put(Id, note.getId());
+//     value.put(Id, note.getId());
         value.put(Image, note.getImage());
         value.put(Title, note.getTitle());
         value.put(subTitle, note.getSubTitle());
@@ -85,8 +86,29 @@ public class MyDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "Delete From " + TableName + " Where ID=" + id;
         db.execSQL(sql);
+//        db.execSQL("Update " + TableName + " SET ID=0 where Name = " + TableName);
         db.close();
     }
+
+    //lay ra id
+    @SuppressLint("Range")
+    public int getIDNote(int pos)
+    {
+
+        String sql = "Select * from " + TableName + " Where id = " + pos ;
+//        String sql = "Select *, ROW_NUMBER() AS STT From " + TableName;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        int index = 0;
+        Cursor cursor = db.rawQuery(sql, null);
+        if(cursor!=null)
+            while (cursor.moveToNext())
+            {
+                index = cursor.getInt(0);
+            }
+        return index;
+    }
+
     //lấy tất cả các dòng của bảng TableContact trả về dạng ArrayList
     public ArrayList<Note> getAllNote()
     {

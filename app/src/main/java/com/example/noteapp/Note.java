@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Note implements Serializable {
 
-   private int Id;
+    private int Id;
     private String Image;
     private String Title;
     private String subTitle;
@@ -12,8 +12,7 @@ public class Note implements Serializable {
     private String DateTime;
     private String Color;
     private String WebLink;
-
-    public Note(int id,String image, String title, String subTitle, String content, String dateTime, String color, String webLink) {
+    public Note(int id, String image, String title, String subTitle, String content, String dateTime, String color, String webLink) {
         Id = id;
         Image = image;
         Title = title;
@@ -25,7 +24,17 @@ public class Note implements Serializable {
     }
 
     public Note(String image, String title, String subTitle, String content, String dateTime, String color, String webLink) {
+//        Id = id;
+        Image = image;
+        Title = title;
+        this.subTitle = subTitle;
+        Content = content;
+        DateTime = dateTime;
+        Color = color;
+        WebLink = webLink;
     }
+
+
 
     public int getId() {
         return Id;

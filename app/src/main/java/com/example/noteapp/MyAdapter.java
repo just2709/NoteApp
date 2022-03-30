@@ -1,6 +1,11 @@
 package com.example.noteapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +28,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
     private ArrayList<Note> notes;
     private NoteListener noteListener;
     private ArrayList<Note> databackup;
-    public MyAdapter(ArrayList<Note> notes, NoteListener noteListener) {
 
+
+    public MyAdapter(ArrayList<Note> notes, NoteListener noteListener) {
         this.notes = notes;
         this.noteListener = noteListener;
     }
@@ -86,7 +94,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
                         if (note.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                             newdata.add(note);
                         }
-
                     }
                     fr.count = newdata.size();
                     fr.values = newdata;
@@ -100,7 +107,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
                 notes = new ArrayList<Note>();
                 ArrayList<Note> tmp = (ArrayList<Note>) filterResults.values;
                 for (Note note : tmp) {
-                    Note nt = new Note(note.getId(),note.getImage(),note.getTitle(),note.getSubTitle(), note.getContent(),note.getDateTime(),note.getColor(),note.getWebLink());
+//                    Note nt = new Note(note.getImage(),note.getTitle(),note.getSubTitle(), note.getContent(),note.getDateTime(),note.getColor(),note.getWebLink());
                     notes.add(note);
                 }
                 notifyDataSetChanged();
@@ -110,6 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
         };
         return f;
     }
+
 
     static class NoteViewHolder extends RecyclerView.ViewHolder{
 
@@ -122,6 +130,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
             textSubtitle = itemView.findViewById(R.id.textSubtitle);
             textDateTime = itemView.findViewById(R.id.textDateTime);
             layoutNote = itemView.findViewById(R.id.layoutNote);
+            imageNote = itemView.findViewById(R.id.imageNote);
         }
 
         void setNote(Note note){
@@ -132,29 +141,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.NoteViewHolder> im
                 textSubtitle.setText(note.getSubTitle());
             }
             textDateTime.setText(note.getDateTime());
-//            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
-//            if(note.getColor() != null)
-//            {
-//                gradientDrawable.setColor(Color.parseColor(note.getColor()));
-//            } else {
-//                gradientDrawable.setColor(Color.parseColor("#333333"));
-//            }
 
-//            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
-//            if(note.getColor() != null)
-//            {
-//                gradientDrawable.setColor(Color.parseColor(note.getColor()));
-//            } else {
-//                gradientDrawable.setColor(Color.parseColor("#333333"));
-//            }
+            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
+            if(note.getColor() != null)
+            {
+                gradientDrawable.setColor(Color.parseColor(note.getColor()));
+            } else {
+                gradientDrawable.setColor(Color.parseColor("#333333"));
+            }
 
             // add image
-//            if(note.setImage() != null){
-//                imageNote.setImageBitmap(BitmapFactory.decodeFile(note.getImage()));
-//                imageNote.setVisibility(View.VISIBLE);
-//            }else {
-//                imageNote.setVisibility(View.GONE);
-//            }
+            if(note.getImage() != null){
+                imageNote.setImageBitmap(BitmapFactory.decodeFile(note.getImage()));
+                imageNote.setVisibility(View.VISIBLE);
+            }else {
+                imageNote.setVisibility(View.GONE);
+            }
 
         }
 

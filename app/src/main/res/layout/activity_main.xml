@@ -112,33 +112,7 @@
             android:src="@drawable/ic_web_link"
             app:tint="@color/colorIcons" />
 
-        <LinearLayout
-            android:id="@+id/layoutDeleteNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15sp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_delete"
-                app:tint="@color/colorDelete" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15sp"
-                android:includeFontPadding="false"
-                android:text="Delete Note"
-                android:textColor="@color/colorDelete"
-                android:textSize="20sp" />
-
-
-        </LinearLayout>
 
     </LinearLayout>
 

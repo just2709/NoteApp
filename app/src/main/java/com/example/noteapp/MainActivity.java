@@ -7,10 +7,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     //public static final int REQUEST_CODE_ADD_NOTE = 1;
     MyDB mysqlitedb;
     int selectedid = -1;
+    int ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         listView = findViewById(R.id.notesRecyclerView);
         listView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         editSearch = findViewById(R.id.inputSearch);
-        mysqlitedb = new MyDB(this, "NoteAppDB", null, 1);
+        mysqlitedb = new MyDB(this, "NDBssssss", null, 3);
 
 //        mysqlitedb.addNote(new Note(1, "2", "Công suất 200W", "Hello", "...", "...", "...", "..."));
         lstNote = mysqlitedb.getAllNote();
@@ -83,22 +87,50 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
         intent.putExtra("note", note);
+        intent.putExtra("id", position);
+//        Toast.makeText(this, "hello" + mysqlitedb.getIDNote(position), Toast.LENGTH_SHORT).show();
+
         startActivityForResult(intent, 198);
     }
+
+//    @Override
+//    public void onItemLongClick(Note note, int position) {
+//        Toast.makeText(this, "hello" + lstNote.indexOf(position), Toast.LENGTH_SHORT).show();
+//        mysqlitedb.deleteNote(note.getId());
+////        lstAdapter.notifyItemMoved(position);
+//    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle bundle;
-        bundle = data.getExtras();
-        Note note = (Note) bundle.getSerializable("note");
+
         if(requestCode==100 && resultCode==200)
         {
+            Toast.makeText(MainActivity.this, "hell111o", Toast.LENGTH_SHORT).show();
+
+            Bundle bundle;
+            bundle = data.getExtras();
+            Note note = (Note) bundle.getSerializable("note");
             //đặt vào listData
             lstNote.add(note);
             mysqlitedb.addNote(note);
-        } else if (requestCode==100 && resultCode==199) {
-            mysqlitedb.deleteNote(selectedid);
+        } else if (resultCode==199) {
+
+            Bundle bundle;
+            bundle = data.getExtras();
+            ID = (int) bundle.getSerializable("selectedID");
+            mysqlitedb.deleteNote(ID);
+            Toast.makeText(MainActivity.this, "Delete success! ", Toast.LENGTH_SHORT).show();
+
+        } else if (resultCode==190) {
+            Bundle bundle;
+            bundle = data.getExtras();
+            Note note = (Note) bundle.getSerializable("noteUpdate");
+            ID = (int) bundle.getSerializable("selectedIDUpdate");
+            mysqlitedb.updateNote(ID, note);
+            Toast.makeText(MainActivity.this, "Update success! ", Toast.LENGTH_SHORT).show();
         }
         //cập nhật adapter
         lstNote = mysqlitedb.getAllNote();

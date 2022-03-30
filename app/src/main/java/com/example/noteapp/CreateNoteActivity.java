@@ -43,13 +43,14 @@ public class CreateNoteActivity extends AppCompatActivity {
     View viewSubtitle;
     ImageView imagecolor1,imagecolor2,imagecolor3,imagecolor4,imagecolor5, imageSave;
     EditText inputNoteTitle, inputNoteSubTitle, inputNote;
-    TextView textDateTime;
+    TextView textDateTime, tvID;
 
     private TextView textWebURL;
     private Note alreadyAvailableNote;
     private LinearLayout layoutWebURL;
     private AlertDialog dialogAddURL;
     private ImageView imageNote;
+    private String ID;
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private  static final int REQUEST_CODE_SELECT_IMAGE = 2;
@@ -60,25 +61,15 @@ public class CreateNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
-        ImageView imageBack = findViewById(R.id.imageBack);
-         textWebURL = findViewById(R.id.textWebURL);
-         layoutWebURL = findViewById(R.id.layoutWebURL);
-        imageBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
         selectedColor = "#333333";
         SelectedImagePath = "";
         initMiscellaneous();
 
+        tvID = findViewById(R.id.tvID);
         inputNoteTitle = (EditText)findViewById(R.id.inputNoteTitle);
         inputNoteSubTitle = (EditText)findViewById(R.id.inputNoteSubTitle);
         inputNote = (EditText)findViewById(R.id.inputNote);
         textDateTime = (TextView) findViewById(R.id.textDateTime);
-        //imageNote = (EditText)findViewById(R.id.imageNote);
         imageNote = findViewById(R.id.imageNote);
         textDateTime.setText(new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
         viewSubtitle = findViewById(R.id.viewSubtitleIndicator);
@@ -90,10 +81,9 @@ public class CreateNoteActivity extends AppCompatActivity {
                 String validate = Validate(inputNoteTitle.getText().toString());
 
                 if (validate.equals("")) {
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(CreateNoteActivity.this, MainActivity.class);
                     Bundle bundle = new Bundle();
-
-                    // thêm selectImagePath
+//                    bundle.putInt("getSelectedID", alreadyAvailableNote.getId());
                     Note note1 = new Note(SelectedImagePath, inputNoteTitle.getText().toString(),
                             inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
                             textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
@@ -107,6 +97,16 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
+        ImageView imageBack = findViewById(R.id.imageBack);
+        textWebURL = findViewById(R.id.textWebURL);
+        layoutWebURL = findViewById(R.id.layoutWebURL);
+        imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateNoteActivity.this, MainActivity.class);
+                startActivityForResult(intent, 400);
+            }
+        });
 
         if(getIntent().getBooleanExtra("isViewOrUpdate", false)){
             alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
@@ -353,11 +353,16 @@ public class CreateNoteActivity extends AppCompatActivity {
             view.findViewById(R.id.btnDeleteNote).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
+                    Intent intent = new Intent(CreateNoteActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+//                    bundle.putInt("getSelectedID", alreadyAvailableNote.getId());
+                    Integer selectID = new Integer(ID);
+                    bundle.putInt("selectedID", selectID);
+                    intent.putExtras(bundle);
                     setResult(199, intent);
                     finish();
-                    layoutWebURL.setVisibility(View.VISIBLE);
                     dialogDeleteNote.dismiss();
+
                 }
             });
 
@@ -380,11 +385,48 @@ public class CreateNoteActivity extends AppCompatActivity {
     }
 
     private void setViewOrUpdateNote() {
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.putInt("getSelectedID", alreadyAvailableNote.getId());
+
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("getSelectedID", alreadyAvailableNote.getId());
+        ID = String.valueOf(alreadyAvailableNote.getId());
+        Toast.makeText(CreateNoteActivity.this, "ID: " + alreadyAvailableNote.getId(), Toast.LENGTH_SHORT).show();
+        tvID.setText(ID);
         inputNoteTitle.setText(alreadyAvailableNote.getTitle());
         inputNoteSubTitle.setText(alreadyAvailableNote.getSubTitle());
         inputNote.setText(alreadyAvailableNote.getContent());
         textWebURL.setText(alreadyAvailableNote.getWebLink());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
+        if(alreadyAvailableNote.getImage() != ""){
+            imageNote.setImageBitmap(BitmapFactory.decodeFile(alreadyAvailableNote.getImage()));
+            imageNote.setVisibility(View.VISIBLE);
+        }else {
+            imageNote.setVisibility(View.GONE);
+        }
+        selectedColor = alreadyAvailableNote.getColor();
+        SelectedImagePath = alreadyAvailableNote.getImage();
+        imageSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String validate = Validate(inputNoteTitle.getText().toString());
 
+                if (validate.equals("")) {
+                    Intent intent = new Intent(CreateNoteActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    Integer selectID = new Integer(ID);
+                    Note note1 = new Note(SelectedImagePath, inputNoteTitle.getText().toString(),
+                            inputNoteSubTitle.getText().toString(), inputNote.getText().toString(),
+                            textDateTime.getText().toString(), selectedColor.toString(), textWebURL.getText().toString());
+                    bundle.putSerializable("noteUpdate", note1);
+                    bundle.putInt("selectedIDUpdate", selectID);
+                    intent.putExtras(bundle);
+                    setResult(190, intent);
+                    finish();
+                } else {
+                    Toast.makeText(CreateNoteActivity.this, validate, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
