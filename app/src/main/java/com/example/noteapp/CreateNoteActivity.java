@@ -391,7 +391,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 //        Bundle bundle = new Bundle();
 //        bundle.putInt("getSelectedID", alreadyAvailableNote.getId());
         ID = String.valueOf(alreadyAvailableNote.getId());
-        Toast.makeText(CreateNoteActivity.this, "ID: " + alreadyAvailableNote.getId(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(CreateNoteActivity.this, "ID: " + alreadyAvailableNote.getId(), Toast.LENGTH_SHORT).show();
         tvID.setText(ID);
         inputNoteTitle.setText(alreadyAvailableNote.getTitle());
         inputNoteSubTitle.setText(alreadyAvailableNote.getSubTitle());

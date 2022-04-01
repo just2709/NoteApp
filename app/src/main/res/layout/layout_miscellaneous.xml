@@ -19,7 +19,7 @@
         android:includeFontPadding="false"
         android:text="@string/miscellaneous"
         android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/layoutNoteColor"

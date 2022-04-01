@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private AlertDialog dialogDeleteNote;
     private ImageView imageAddWebLink;
-    //public static final int REQUEST_CODE_ADD_NOTE = 1;
 
     ArrayList<Note> lstNote;
     MyAdapter lstAdapter;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     EditText editSearch;
     //public static final int REQUEST_CODE_ADD_NOTE = 1;
     MyDB mysqlitedb;
-    int selectedid = -1;
     int ID;
 
     @Override
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         listView = findViewById(R.id.notesRecyclerView);
         listView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         editSearch = findViewById(R.id.inputSearch);
-        mysqlitedb = new MyDB(this, "NDBssssss", null, 3);
+        mysqlitedb = new MyDB(this, "MyNote", null, 3);
 
 //        mysqlitedb.addNote(new Note(1, "2", "Công suất 200W", "Hello", "...", "...", "...", "..."));
         lstNote = mysqlitedb.getAllNote();
@@ -83,11 +81,11 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     @Override
     public void onNoteClicked(Note note, int position) {
-        selectedid = position;
+//        selectedid = position;
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
         intent.putExtra("note", note);
-        intent.putExtra("id", position);
+//        intent.putExtra("id", position);
 //        Toast.makeText(this, "hello" + mysqlitedb.getIDNote(position), Toast.LENGTH_SHORT).show();
 
         startActivityForResult(intent, 198);
@@ -108,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
         if(requestCode==100 && resultCode==200)
         {
-            Toast.makeText(MainActivity.this, "hell111o", Toast.LENGTH_SHORT).show();
-
             Bundle bundle;
             bundle = data.getExtras();
             Note note = (Note) bundle.getSerializable("note");

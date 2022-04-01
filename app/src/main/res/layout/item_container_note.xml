@@ -28,7 +28,7 @@
         android:fontFamily="bold"
         android:includeFontPadding="false"
         android:textColor="@color/white"
-        android:textSize="13sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/textSubtitle"
@@ -41,7 +41,7 @@
         android:fontFamily="regular"
         android:includeFontPadding="false"
         android:textColor="@color/white"
-        android:textSize="12sp"/>
+        android:textSize="13sp"/>
 
     <TextView
         android:id="@+id/textDateTime"
@@ -53,7 +53,7 @@
         android:fontFamily="regular"
         android:includeFontPadding="false"
         android:textColor="@color/teal_200"
-        android:textSize="7sp"
+        android:textSize="12sp"
         />
 
 
