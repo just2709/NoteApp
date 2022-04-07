@@ -84,37 +84,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="15sp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <ImageView
-            android:id="@+id/imageAddNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_add_outline"
-            app:tint="@color/colorIcons" />
-
-        <ImageView
-            android:id="@+id/imageAddImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_image"
-            app:tint="@color/colorIcons" />
-
-        <ImageView
-            android:id="@+id/imageAddWebLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_web_link"
-            app:tint="@color/colorIcons" />
-
-
-
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/imageAddNoteMain"
