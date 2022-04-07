@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             Toast.makeText(MainActivity.this, "Update success! ", Toast.LENGTH_SHORT).show();
         }
         //cập nhật adapter
+        lstNote = null;
         lstNote = mysqlitedb.getAllNote();
         lstAdapter = new MyAdapter(lstNote, this);
         lstAdapter.notifyDataSetChanged();
